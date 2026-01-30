@@ -15,14 +15,14 @@ shap==0.44.0
 
 # Web Framework
 streamlit==1.29.0
-fastapi==0.108.0
+fastapi==0.109.1
 uvicorn==0.25.0
 pydantic==2.5.3
 pydantic-settings==2.1.0
 
 # File handling
 openpyxl==3.1.2
-python-multipart==0.0.6
+python-multipart==0.0.22
 
 # PDF Generation
 reportlab==4.0.7
