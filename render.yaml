@@ -1,0 +1,31 @@
+# Render deployment configuration
+# This file is used by Render.com for deployment
+
+services:
+  # Streamlit Dashboard
+  - type: web
+    name: supply-chain-dashboard
+    env: python
+    plan: starter
+    buildCommand: "pip install -r requirements.txt && python -c 'from src.data.sample_generator import save_sample_data; save_sample_data()'"
+    startCommand: "streamlit run src/dashboard/app.py --server.port=$PORT --server.address=0.0.0.0 --server.headless=true"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: APP_ENV
+        value: production
+      - key: DEBUG
+        value: false
+    
+  # FastAPI Service
+  - type: web
+    name: supply-chain-api
+    env: python
+    plan: starter
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn src.api.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: APP_ENV
+        value: production

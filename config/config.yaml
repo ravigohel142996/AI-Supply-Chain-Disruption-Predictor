@@ -1,0 +1,97 @@
+# AI Supply Chain Disruption Predictor Configuration
+
+# Application Settings
+app:
+  name: "AI Supply Chain Disruption Predictor"
+  version: "1.0.0"
+  environment: "production"
+  debug: false
+
+# Model Configuration
+model:
+  type: "xgboost"  # Options: xgboost, random_forest, gradient_boosting
+  version: "v1"
+  hyperparameters:
+    n_estimators: 200
+    max_depth: 10
+    learning_rate: 0.1
+    subsample: 0.8
+    colsample_bytree: 0.8
+    random_state: 42
+  cv_folds: 5
+  test_size: 0.2
+  random_state: 42
+
+# Feature Engineering
+features:
+  numerical:
+    - "order_value"
+    - "shipping_distance"
+    - "lead_time"
+    - "supplier_reliability_score"
+    - "inventory_level"
+    - "demand_forecast"
+    - "weather_risk_index"
+  categorical:
+    - "shipping_mode"
+    - "supplier_region"
+    - "product_category"
+    - "season"
+    - "carrier"
+  target: "is_delayed"
+
+# Risk Thresholds
+risk:
+  low_threshold: 0.3
+  medium_threshold: 0.6
+  high_threshold: 0.8
+
+# Business Impact Parameters
+business:
+  avg_order_value: 5000
+  sla_penalty_rate: 0.15
+  churn_probability_multiplier: 0.05
+  customer_lifetime_value: 50000
+
+# Alert Configuration
+alerts:
+  email_enabled: false
+  slack_enabled: false
+  high_risk_threshold: 0.7
+  batch_size: 100
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  reload: false
+  workers: 4
+  cors_origins:
+    - "http://localhost"
+    - "http://localhost:8501"
+    - "http://localhost:8000"
+
+# Data Validation
+data_validation:
+  required_columns:
+    - "order_id"
+    - "order_value"
+    - "shipping_distance"
+    - "lead_time"
+  max_missing_rate: 0.3
+  outlier_threshold: 3.0
+
+# Logging
+logging:
+  level: "INFO"
+  format: "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>"
+  rotation: "500 MB"
+  retention: "10 days"
+
+# Paths
+paths:
+  data_raw: "data/raw"
+  data_processed: "data/processed"
+  models: "models"
+  logs: "logs"
+  reports: "reports"
