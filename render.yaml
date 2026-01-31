@@ -16,6 +16,10 @@ services:
         value: production
       - key: DEBUG
         value: false
+      # Repository root (Render checks out to /opt/render/project/src by default)
+      # This allows Python to find the src/ package directory at /opt/render/project/src/src/
+      - key: PYTHONPATH
+        value: /opt/render/project/src
     
   # FastAPI Service
   - type: web
@@ -29,3 +33,7 @@ services:
         value: 3.11.0
       - key: APP_ENV
         value: production
+      # Repository root (Render checks out to /opt/render/project/src by default)
+      # This allows Python to find the src/ package directory at /opt/render/project/src/src/
+      - key: PYTHONPATH
+        value: /opt/render/project/src
